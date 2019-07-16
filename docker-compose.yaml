@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  php:
+    image: kolina/php:api-plaftorm-1.0
+    build:
+      context: .
+      target: php
+      cache_from:
+        - kolina/php:api-plaftorm-1.0
+        - kolina/nginx:api-plaftorm-1.0
+    volumes:
+      - .:/srv:rw,cached
+      - ./var:/srv/var:rw
+
+  api:
+    image: kolina/nginx:api-plaftorm-1.0
+    build:
+      context: .
+      target: nginx
+      cache_from:
+        - kolina/php:api-plaftorm-1.0
+        - kolina/nginx:api-plaftorm-1.0
+    depends_on:
+      - php
+    volumes:
+      - ./public:/srv/public:ro
+    ports:
+      - "8080:80"
