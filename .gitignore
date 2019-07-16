@@ -7,3 +7,7 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+###> IDE's ###
+/.idea/
+###< IDE's ###
